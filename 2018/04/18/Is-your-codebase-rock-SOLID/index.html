@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Is your codebase rock SOLID">
+  <meta name="keyword" content="solid, solid principles, software design principles">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="A journey into Kudakwashe Paradzayi&#39;s mind">
+  <meta name="keyword" content="kudapara, kudakwashe, blog, web">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@kudapara" />
+  <meta name="twitter:creator" content="@kudapara" />
+  <meta property="og:title" content="Is your code rock SOLID">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://kudapara.co.zw/blog/css/images/logo.png">
+  <meta property="og:image:height" content="100">
+  <meta property="og:image:width" content="100">
+  <meta property="og:url" content="http://kudapara.co.zw/blog/2018/04/18/Is-your-codebase-rock-SOLID/">
+  <meta property="og:description" content="SOLID principles explained with code samples to reinforce the concepts">
+  
+    <link rel="shortcut icon" href="/blog/css/images/logo.png">
+  
+  <title>
+    
+      Is your codebase rock SOLID | kudakwashe
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/blog/css/style.css">
+<link rel="stylesheet" href="/blog/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/blog/js/qrious.js"></script>
+<script src="/blog/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/blog/">
+      <div class="logo"></div>
+      <span>kudakwashe</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/blog/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/blog/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/blog/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/blog/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/blog/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/blog/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/blog/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/blog/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/blog/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/blog/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Is your codebase rock SOLID</h2>
+  <p class="post-date">2018-04-18</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Anyone can write code, but to write quality code that scales requires one to apply disciplined practices. As software developers our ultimate goal is to create software that is </p>
+<ul>
+<li>Tolerant to change</li>
+<li>Easy to understand</li>
+<li>The basis of components that will be used in other systems.</li>
+</ul>
+<p>I introduce you to the SOLID principles that were introduced by <a href="https://en.wikipedia.org/wiki/Robert_C._Martin" target="_blank" rel="noopener">Robert C Martin</a> aka Uncle Bob in 1995 (but still very much relavant today). These principles are going to solve a lot of hells that arise due to <a href="https://en.wikipedia.org/wiki/Spaghetti_code" target="_blank" rel="noopener">spagghetti code</a> and make the future you thank you for the code you are writting now.</p>
+<h2 id="So-what-then-are-the-SOLID-principles"><a href="#So-what-then-are-the-SOLID-principles" class="headerlink" title="So what then are the SOLID principles"></a>So what then are the SOLID principles</h2><p>SOLID is an acronym for</p>
+<ul>
+<li><strong>S - The Single Responsibility Principle (SRP)</strong><blockquote>
+<p>Each class should have one and only one reason to change</p>
+</blockquote>
+</li>
+<li><strong>O - The Open-Closed Principle (OCP)</strong><blockquote>
+<p>Classes should be open for extension and closed for modification. </p>
+</blockquote>
+</li>
+<li><strong>L - The Liskov Substitution Principle (LSP)</strong><blockquote>
+<p>Derived classes must be substitutable for their base classes</p>
+</blockquote>
+</li>
+<li><strong>I - The Interfacer segregation Principe (ISP)</strong><blockquote>
+<p>Classes should not depend on code they do not use</p>
+</blockquote>
+</li>
+<li><strong>D - The Dependancy inversion principle (DIP)</strong><blockquote>
+<p>Depend on abstractions and not on conctretions</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Some-more-explanation-with-code-examples"><a href="#Some-more-explanation-with-code-examples" class="headerlink" title="Some more explanation with code examples"></a>Some more explanation with code examples</h2><h4 id="Single-Responsibility-Principle"><a href="#Single-Responsibility-Principle" class="headerlink" title="Single Responsibility Principle"></a>Single Responsibility Principle</h4><p>The SRP tells us that each class should only have one reason to change. This is commonly misunderstood as meaning that each module should contain only one function. It simply means that if a class contains parts that have to change for different reasons, they are better off as seperate classes. The example below will illustrate the fact.</p>
+<p><br></p>
+<script src="https://gist.github.com/kudapara/d3f75b51f2aecc7b282723c3305ab066.js"></script>
+
+<p>The code above violates the SRP because the sum and the output would change for different reasons. The single responsibility of this class is for area calculations and not for output. However this can be fixed by splitting the class into two distinct classes <code>AreaCalculator</code> and <code>CalculatorOutput</code>.</p>
+<p><br></p>
+<script src="https://gist.github.com/kudapara/b37afa1b31f94430861e530b15c04f89.js"></script>
+
+<p>Now thats better. We can now use our classes in our code easily knowing that each class is responsible for one thing.</p>
+<p><br></p>
+<script src="https://gist.github.com/kudapara/a55c80c356ac1bf8d8ba1cf3dc2fda4d.js"></script>
+
+<h4 id="Open-Closed-Principle"><a href="#Open-Closed-Principle" class="headerlink" title="Open-Closed Principle"></a>Open-Closed Principle</h4><p>Software must be easy to change. Changing the behaviour of software should be achieved by the addition of new code and not the changing of the existing code. Consider the following example:</p>
+<p><br></p>
+<script src="https://gist.github.com/kudapara/efc3e27411fae9bc08945a34a5a5a780.js"></script>
+
+<p>So what’s wrong with this code? Imagine if you wanted to add another shape, say a triangle how would you add logic to the <code>AreaCalculator</code> class. You would probably add onother if statement checking if the shape is of type triangle, but this approach violates the OCP because we are modifying the <code>AreaCalculator</code> class. A possible solution is to make each shape have its own area method like so:</p>
+<p><br></p>
+<script src="https://gist.github.com/kudapara/118efa912e962bf119ce74b0ffa78589.js"></script>
+
+<p>Now as long as each shape follows the shape interface we can <em>extend</em> the functionality of the <code>AreaCalculator</code> class to include more type of shapes without <em>modifying</em> the existing code.</p>
+<h4 id="Liskov-Substitution-Principle"><a href="#Liskov-Substitution-Principle" class="headerlink" title="Liskov Substitution Principle"></a>Liskov Substitution Principle</h4><p>Derived classes must be substitutable for their base classes. Which simply means if class B is derived from class A, and class C is also derived dfrom class A then it is possible to derive class C class B without any problem. </p>
+<p>Another way to say it would be: <em>classes that reference base classes must be able to use objects of the derived class without knowing it.</em></p>
+<h4 id="Interface-Segregation-Priciple"><a href="#Interface-Segregation-Priciple" class="headerlink" title="Interface Segregation Priciple"></a>Interface Segregation Priciple</h4><p>This principle ddvises sogftware designers not to create classes that depend on code that they do not use. Suppose we want to include a method that calculated volume of a shape, we could do it like so:</p>
+<p><br></p>
+<script src="https://gist.github.com/kudapara/b28f76c9c669f5eb2bc1bfa7a2d87d49.js"></script>
+
+
+<p>Now the problem her is that the triangle now has a volume method it does not need thus it is violating the ISP. To solve this we could refactor our code and come up with <code>Shape</code> and <code>SolidShape</code> classes that looked like the code below, making each class only depend on the code it is making use of.</p>
+<p><br></p>
+<script src="https://gist.github.com/kudapara/71c9089275461270caeaab0f4c60654d.js"></script>
+
+<h4 id="Dependency-Inversion-Principle"><a href="#Dependency-Inversion-Principle" class="headerlink" title="Dependency Inversion Principle"></a>Dependency Inversion Principle</h4><p>The code that implements high-level policies should not depend on low level code that implements details. Take for example if we had a class <code>Picture</code> that allowed us to make a picture of a shape and it looked like this:</p>
+<p><br></p>
+<script src="https://gist.github.com/kudapara/f75077d89dd2bea72c3e767c960716f6.js"></script>
+
+<p>The fact that we are making an instance of <code>Shape</code> in the definition of the constructor for <code>Picture</code>, we are making <code>Picture</code> depend on the concrete implementation of the <code>Shape</code> class. Instead what we should do is to depend on an abstracted interface for the <code>Shape</code> class as shown below:</p>
+<p><br></p>
+<script src="https://gist.github.com/kudapara/031caff01b0920e3105fbdf99ac24716.js"></script>
+
+<p>As long as the shape passed to the <code>Picture</code> follows the interface of the <code>Shape</code> the <code>Picture</code> class will not care what type of shape is passed to it.</p>
+<hr>
+<p>Now that you have an understanding of the SOLID principles you could use it to refactor your codebases to achive the following:</p>
+<ul>
+<li>Flexibility of code</li>
+<li>Orient your code towards future use rather than just immediate needs</li>
+<li>Produce modular code that is reausable even out of original context</li>
+<li>Produce code that is easy to test</li>
+<li>Develop systems that are resilient to changes</li>
+<li>Developer joy - SOLID principles results in cleaner code because of the extra effort it needs and spaghetti free code contributes significantly to developer joy and motivation</li>
+</ul>
+<hr>
+<h2 id="Take-home"><a href="#Take-home" class="headerlink" title="Take home"></a>Take home</h2><blockquote>
+<p>“It is not enough for code to work.”<br>― <em>Robert C. Martin, Clean Code: A Handbook of Agile Software Craftsmanship </em></p>
+</blockquote>
+<hr>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164" target="_blank" rel="noopener">Clean Architecture: A Craftsman’s Guide to Software Structure and Design</a></li>
+<li><a href="https://www.youtube.com/watch?v=GtZtQ2VFweA" target="_blank" rel="noopener">S.O.L.I.D. Principles of Object-Oriented Design - A Tutorial on Object-Oriented Design (video)</a></li>
+</ul>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/blog/blog/tags#SOLID Principles" >
+    <span class="tag-code">SOLID Principles</span>
+  </a>
+
+  <a href="/blog/blog/tags#Clean Code" >
+    <span class="tag-code">Clean Code</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/blog/2018/03/28/Introducing-the-blog/">
+        <span class="nav-arrow">← </span>
+        
+          Introducing the blog
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Introduction"><span class="toc-nav-text">Introduction</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#So-what-then-are-the-SOLID-principles"><span class="toc-nav-text">So what then are the SOLID principles</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Some-more-explanation-with-code-examples"><span class="toc-nav-text">Some more explanation with code examples</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Single-Responsibility-Principle"><span class="toc-nav-text">Single Responsibility Principle</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Open-Closed-Principle"><span class="toc-nav-text">Open-Closed Principle</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Liskov-Substitution-Principle"><span class="toc-nav-text">Liskov Substitution Principle</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Interface-Segregation-Priciple"><span class="toc-nav-text">Interface Segregation Priciple</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Dependency-Inversion-Principle"><span class="toc-nav-text">Dependency Inversion Principle</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Take-home"><span class="toc-nav-text">Take home</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#References"><span class="toc-nav-text">References</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://kudapara.github.io/2018/04/18/Is-your-codebase-rock-SOLID/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "kudapara";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Is your codebase rock SOLID",
+        owner: "kudapara",
+        repo: "blog",
+        oauth: {
+          client_id: "0d4d5e4866ba274b1a68",
+          client_secret: "ac9d0dfe2c7bbb89988976ec3eebe350293f6bbb"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 |
+    <a href="https://github.com/kudapara">kudapara</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/blog/js/script.js"></script>
+  </body>
+</html>
